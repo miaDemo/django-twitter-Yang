@@ -14,8 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
+from accounts.api import views
+
+router = routers.DefaultRouter()
+router.register(r'api/users', views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # localhost 访问进来显示主页的，否则没有主页显示
+    path('', include(router.urls)),
+    # https://www.django-rest-framework.org/ 老师忘记干嘛的，说是直接根据官方文档设置的
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
