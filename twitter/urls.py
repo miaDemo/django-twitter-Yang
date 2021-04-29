@@ -20,6 +20,8 @@ from accounts.api import views
 
 router = routers.DefaultRouter()
 router.register(r'api/users', views.UserViewSet)
+# 我们需要通过'/api/accounts'来访问用户的登陆状态，所以需要添加一个新的router, basename是为了避免名字冲突
+router.register(r'api/accounts', views.AccountViewSet, basename='accounts')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
