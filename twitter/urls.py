@@ -18,6 +18,8 @@ from django.urls import include, path
 from rest_framework import routers
 from accounts.api import views
 
+import debug_toolbar
+
 router = routers.DefaultRouter()
 router.register(r'api/users', views.UserViewSet)
 # 我们需要通过'/api/accounts'来访问用户的登陆状态，所以需要添加一个新的router, basename是为了避免名字冲突
@@ -29,4 +31,6 @@ urlpatterns = [
     path('', include(router.urls)),
     # https://www.django-rest-framework.org/ 老师忘记干嘛的，说是直接根据官方文档设置的
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # debug toolbar
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
